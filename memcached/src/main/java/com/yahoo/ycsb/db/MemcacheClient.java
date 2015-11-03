@@ -42,6 +42,11 @@ public class MemcacheClient extends DB {
             client = new MemcachedClient(new InetSocketAddress(server, port));
         } catch (IOException e) { throw new DBException(e); }
     }
+
+    public void cleanup() throws DBException {
+        client.shutdown();
+    }
+
     /**
      * Read a record from the database. Each field/value pair from the result will be stored in a HashMap.
      *

@@ -121,6 +121,7 @@ LICENSE file.
     <module>orientdb</module>
     <module>redis</module>
     <module>tarantool</module>
+    <module>memcached</module>
     <!--<module>voldemort</module>-->
   </modules>
 

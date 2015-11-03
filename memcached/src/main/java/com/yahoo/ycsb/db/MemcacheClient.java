@@ -7,16 +7,34 @@ import com.yahoo.ycsb.DB;
 import com.yahoo.ycsb.DBException;
 import com.yahoo.ycsb.ByteIterator;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.Vector;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.util.*;
 
+import net.spy.memcached.MemcachedClient;
 
-public class MemcachedClient extends DB {
+public class MemcacheClient extends DB {
+
+    public static final String HOST_PROPERTY = "memcached.server";
+    public static final String PORT_PROPERTY = "memcached.port";
+
+    MemcachedClient client;
 
     public void init() throws DBException {
-        System.out.println("Initializing...");
+        Properties props = getProperties();
+
+        String server = props.getProperty("HOST_PROPERTY");
+        int port = 11211;
+
+        if (server == null)
+            throw new DBException("memcached.server param must be specified");
+
+        try { port = Integer.parseInt(props.getProperty(PORT_PROPERTY)); }
+        catch (Exception e) {}
+
+        try {
+            client = new MemcachedClient(new InetSocketAddress(server, port));
+        } catch (IOException e) { throw new DBException(e); }
     }
 
     @Override

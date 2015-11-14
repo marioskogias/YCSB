@@ -111,7 +111,7 @@ public class OneMeasurementHistogram extends OneMeasurement
       opcounter+=histogram[i];
       if ( (!done95th) && (((double)opcounter)/((double)operations)>=0.95) )
       {
-        exporter.write(getName(), "95thPercentileLatency(us)", i*1000);
+        exporter.write(getName(), "85thPercentileLatency(us)", i*1000);
         done95th=true;
       }
       if (((double)opcounter)/((double)operations)>=0.99)

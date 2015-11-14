@@ -106,6 +106,8 @@ public class OneMeasurementHistogram extends OneMeasurement
     boolean done95th=false;
     for (int i=0; i<_buckets; i++)
     {
+
+      System.err.println("Bucket "+Integer.toString(i)+" size "+Integer.toString(histogram[i]));
       opcounter+=histogram[i];
       if ( (!done95th) && (((double)opcounter)/((double)operations)>=0.95) )
       {
